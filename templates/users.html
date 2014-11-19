@@ -29,7 +29,7 @@
                     <label for="first_name">First Name</label>
                     <input type="text" class="form-control" id="first_name" ng-model="user.first_name" required>
                 </div>
-                
+
                 <div class="form-group">
                     <label for="last_name">Last Name</label>
                     <input type="text" class="form-control" id="last_name" ng-model="user.last_name" required>
@@ -47,7 +47,12 @@
                 <div class="form-group">
                     <div class="checkbox" ng-repeat="skill in skills">
                         <label>
-                            <input type="checkbox" name="skills" value="{{ skill.id }}" ng-checked="userHasSkill(skill)" ng-model="skill.checked">{{ skill.name }}
+                            <!-- userHasSkill(skill) is a function we define in our controller that returns -->
+                            <!-- true or false and then passing that to ng-checked -->
+                            <!-- In Angular, any form should be tied to a model. -->
+                            <!-- skill.checked doesn't exist in the database, it's purely for the UI and defined -->
+                            <!-- in our skill factory -->
+                            <input type="checkbox" value="{{ skill.id }}" ng-checked="userHasSkill(skill)" ng-model="skill.checked">{{ skill.name }}
                         </label>
                     </div>
                 </div>

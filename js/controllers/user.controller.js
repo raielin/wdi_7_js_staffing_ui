@@ -5,6 +5,9 @@ angular.module('StaffingUI').controller('UserCtrl', function($scope, $http, $q, 
     $scope.titles = TitleFactory.titles;
     $scope.skills = SkillFactory.skills;
 
+    // Looks through all the skills and comparing current state to whether user has that skill yet
+    // If not, we will make a put request to update the skill
+    // If it was checked and is no longer checked, it will make a delete request.
     var updateSkills = function(user_id) {
         var promises = [];
 
@@ -37,7 +40,7 @@ angular.module('StaffingUI').controller('UserCtrl', function($scope, $http, $q, 
         var params = {
             user: user
         };
-        
+
         if (user.id) {
             $http.put(ServerUrl + 'users/' + user.id, params).success(function(response) {
                 $q.all(updateSkills(user.id)).then(function() {
@@ -81,13 +84,17 @@ angular.module('StaffingUI').controller('UserCtrl', function($scope, $http, $q, 
 
     $scope.userHasSkill = function(skill) {
         var found = [];
-
+        // Includes logic that makes sure we have a user and that user has skills
+        // Assuming that passes, we use a filter function to go through all of the user's skills
+        // And find ones that match up
+        // Filter returns a new array.
         if (typeof $scope.user !== 'undefined' && typeof $scope.user.skills !== 'undefined') {
             found = $scope.user.skills.filter(function(item) {
                 return item.id === skill.id;
             });
         }
-
+        // If array is longer than 0 then user must have a skill
+        // If returns true, then ng-checked in our HTML will check the box.
         return found.length > 0;
     };
 });
