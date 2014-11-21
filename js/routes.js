@@ -3,7 +3,8 @@ angular.module('StaffingUI').config(function($routeProvider) {
 
     $routeProvider
         .when('/', {
-            templateUrl: 'templates/home.html'
+            templateUrl: 'templates/home.html',
+            controller: 'HomeCtrl'
         })
         .when('/users', {
             templateUrl: 'templates/users.html',
@@ -12,6 +13,10 @@ angular.module('StaffingUI').config(function($routeProvider) {
         .when('/titles', {
             templateUrl: 'templates/titles.html',
             controller: 'TitleCtrl'
+        })
+        .when('/login', {
+            templateUrl: 'templates/login.html',
+            controller: 'LoginCtrl'
         })
         .otherwise({
             redirectTo: '/'
